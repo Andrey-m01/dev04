@@ -1,0 +1,38 @@
+version: "3.8"
+services: 
+ postgres:
+  image: postgres
+  container_name: local_pgdb
+  restart: always
+  ports:
+    - "5432:5432"
+#  networks:
+#  - postgres
+  environment:
+   PGPORT: 5432
+   POSTGRES_USER: user-name
+   POSTGRES_PASSWORD: strong-password
+  volumes:
+    - local_pgdata:/var/lib/postgresql/data
+ pgadmin:
+  image: dpage/pgadmin4
+  container_name: pgadnin4_container
+  restart: always
+  ports:
+    - "8888:80"
+#  networks:
+#    - postgres
+  environment:
+   PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com 
+   PGADMIN_DEFAULT_PASSWORD: strong-password 
+  volumes:
+    - pgadmin-data:/var/lib/pgadmin
+
+
+#networks:
+#  postgres:
+#    driver: bridge
+
+volumes:
+ local_pgdata: 
+ pgadmin-data:
